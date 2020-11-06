@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Tugas2;
-
-/**
- *
- * @author Ichwal Melianto
- */
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 public class JavaSwing{
     public static void main(String[] args) {
         GUI g = new GUI();
@@ -20,6 +10,8 @@ public class JavaSwing{
 }
 
 class GUI extends JFrame implements ActionListener{
+    JFrame f;
+    
     JLabel lnama = new JLabel("Nama Lengkap");
     final JTextField fnama = new JTextField(30);
     
@@ -49,10 +41,11 @@ class GUI extends JFrame implements ActionListener{
     
     JButton bsave = new JButton("Simpan");
     JButton breset = new JButton("Reset");
+    JButton bkeluar = new JButton("Keluar");
             
     public GUI(){
-        setTitle("Biodata Ngasal");
-        setSize(380,350);
+        setTitle("Biodata Sederhana");
+        setSize(380,400);
         
         ButtonGroup group = new ButtonGroup();
         group.add(rblaki);
@@ -80,21 +73,22 @@ class GUI extends JFrame implements ActionListener{
         add(cbbelajar);
         add(bsave);
         add(breset);
+        add(bkeluar);
         
-        lnama.setBounds(10,10,120,20);
+        lnama.setBounds(20,10,120,20);
         fnama.setBounds(130,10,200,20);
-        lnim.setBounds(10,35,120,20);
+        lnim.setBounds(20,35,120,20);
         fnim.setBounds(130,35,200,20);
-        lkelamin.setBounds(10,60,120,20);
+        lkelamin.setBounds(20,60,120,20);
         rblaki.setBounds(130,60,100,20);
         rbperempuan.setBounds(230,60,100,20);
-        ltempatlahir.setBounds(10,85,120,20);
+        ltempatlahir.setBounds(20,85,120,20);
         ftempatlahir.setBounds(130,85,200,20);
-        lkotaasal.setBounds(10,110,120,20);
+        lkotaasal.setBounds(20,110,120,20);
         fkotaasal.setBounds(130,110,200,20);
-        lagama.setBounds(10,135,200,20);
+        lagama.setBounds(20,135,200,20);
         cmagama.setBounds(130,135,200,20);
-        lhobi.setBounds(10,160,120,20);
+        lhobi.setBounds(20,160,120,20);
         cbmusik.setBounds(130,160,100,20);
         cbfotografi.setBounds(230,160,100,20);
         cbfutsal.setBounds(130,180,100,20);
@@ -102,15 +96,18 @@ class GUI extends JFrame implements ActionListener{
         cbbelajar.setBounds(130,200,100,20);
         bsave.setBounds(130,250,120,20);
         breset.setBounds(130,280,120,20);
+        bkeluar.setBounds(130,310,120,20);
         
         bsave.addActionListener(this);
         breset.addActionListener(this);
+        bkeluar.addActionListener(this);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
     
     public void cekData(){
+        
         System.out.println("\nRekaman Data Anda : ");
         System.out.print("Nama Lengkap\t: "+fnama.getText()+"\n");
         System.out.print("NIM\t\t: "+fnim.getText()+"\n");
@@ -141,18 +138,35 @@ class GUI extends JFrame implements ActionListener{
             System.out.print("Belajar ");
         }
         System.out.println("\n---------------------------------------------------------");
-    }
+    
+        
+    }   
 
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == bsave){
             cekData();
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Halo, "+fnama.getText()+"\n" 
+                    + "Data Anda Berhasil Disimpan\n\n");
         }
         if (event.getSource() == breset){
             fnama.setText("");
             fnim.setText("");
             ftempatlahir.setText("");
             fkotaasal.setText("");
+        }
+        if (event.getSource() == bkeluar) {
+            int a=JOptionPane.showConfirmDialog(f,"Ingin Keluar?");  
+            if(a==JOptionPane.YES_OPTION){  
+                dispose();  
+            }
+            if(a==JOptionPane.NO_OPTION){  
+                fnama.setText("");
+                fnim.setText("");
+                ftempatlahir.setText("");
+                fkotaasal.setText("");  
+            }
         }
     }
 }
